@@ -40,12 +40,12 @@ From your web frontend, you can click on devices and conduct basic actions like 
 # Building custom topologies
 Everything within the SEED environment can be built through a simple python script. The script is divided into 5 key components which are each layered together to provide the full emulation environment:
 
-* Emulation layer: establishes initial emulation environment composed of interconnected docker containers
-* Base layer: defines the individual docker container initial environment and the necessary components
-* Routing layer: initializes the interconnectivity between devices (links everything together via docker-compose environment)
-* Protocol layer: initializes device routing protocols (eg. bgp, ospf, etc) for devices
+* Emulation layer (Docker-compose): establishes initial emulation environment composed of interconnected docker containers
+* Base layer(Docker container): defines the individual docker container initial environment and the necessary components
+* Routing layer (BIRD setup): initializes the interconnectivity between devices (links everything together via docker-compose environment)
+* Protocol layer (BIRD configuration): initializes device routing protocols (eg. bgp, ospf, etc) for devices
 * Device/service layer: adds additional capabilities to the simulation environment such as Web services, DNS, etc.
 
-To build a custom envionment you simply define within the python script the components you need and how they should be linked together. Recommend looking at the `A00-simple-peering` for an easy to understand example/workflow. 
+To build a custom envionment you simply define within the python script the components you need and how they should be linked together. Recommend looking at the `simple-peering.py` in the `A00-simple-peering` example for an easy to understand setup process/workflow. 
 
 
