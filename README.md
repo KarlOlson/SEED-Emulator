@@ -34,7 +34,7 @@ The standard process to setup and run an environment is as follows:
 * 2. Next, you create your docker images. From the `/output` directory, run: `$ docker-compose build` followed by `$docker-compose up`. This will launch your environment of networked systems within the VM.
 * 3. In order to see/visualize these components, a seperate docker image is used to run the web fron/backend for the environment visualization. Go back to your seed root directory and go into the `/client` folder.  Run a `$ docker-compose build` followed by `$ docker-compose up`. Once everything is built/loaded you can navigate to: `http://127.0.0.1:8080/map.html` to view your simulation and interact with devices graphically. Alternatively, `http://127.0.0.1:8080` will present the device dashboard.
 
-![alt text](https://github.com/KarlOlson/Eve-NG-BGP-Lab-Setup/blob/main/Images/network%20.png "Testnet")
+![alt text](https://github.com/KarlOlson/SEED-Emulator/blob/main/Simple-peer.png "Web Environment")
 
 # Interacting with the SEED environment
 From your web frontend, you can click on devices and conduct basic actions like ping, etc. If you want to visualize how this is connecting across the network, the top of the page has a `filter` line. Filter by `ICMP` and it will trace the route through the network. From here you can take devices offline and see how the routing topology reacts to find a new path (or not). Re-enable the device to return to normal operation.
