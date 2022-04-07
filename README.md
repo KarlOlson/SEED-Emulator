@@ -5,6 +5,7 @@ Setting up the SEED emulator is pretty straightforward. There are a few options 
 
 * Build your own custom lightweight VM
 * Use the SEED security base VM (Ubuntu) with a few additions. 
+* Run on host without any VM (preferred for resource/performance). 
 
 If you are just exploring, the SEED security VM has a lot of built-in security vulnerabilities and components that are used by other SEED security labs. If you are just focused on the Internet Emulator, a clean build is the better approach.
 
@@ -49,5 +50,21 @@ Everything within the SEED environment can be built through a simple python scri
 * Device/service layer: adds additional capabilities to the simulation environment such as Web services, DNS, etc.
 
 To build a custom envionment you simply define within the python script the components you need and how they should be linked together. Recommend looking at the `simple-peering.py` in the `A00-simple-peering` example for an easy to understand setup process/workflow. 
+
+# Host environment operation considerations
+Seed internet emulator can be run on any host OS as long as you have python3+, Docker and Docker-compose installed. 
+
+* Windows considerations: I was able to successfully run in both Windows Native and Windows Subsystem for Linux environments with a few caveats:
+
+1. If you run the python build scripts in Windows, they output with Windows End-of-line characters which breaks the docker linux-based image builds. You can fix this by running a dos2unix file converter on the `/output` directory of your project before proceeding with the `docker-compose build` command. Can be run from both Windows Subsystem for Linux (WSL) or via powershell if you have installed the linux package for powershell.
+* `$ apt-get update`
+* `$ apt-get install dos2unix`
+* `$ find . -type f -exec dos2unix '{}' '+'`
+
+2. If you run everything in Windows Docker, certain linux-only devices that rely on socket communication tend to not work (I am thinking of the blockchain example specifically here). There is no crossover for socket communication between WSL and Windows host containers, causing this deployment to break. 
+
+3. If you are running the Eve-ng environment, this requires nested virtualization be enabled on the windows OS. However, this causes problems with WSL and you will not be able to use both environments simultaneously. 
+
+4. Deploying the SEED environment in the native host OS is infinitely better than deployment via a VM. Mainly you have significantly more access to memory resources, which is the limiting factor for scalability. Roughly speaking, a VM environment with 12GB I was able to run apprx. 70 BGP routers, after which the enviroment became unstable and crashed. In windows native and the same 12GB I was able to deploy 200+ devices before any performance degredation. 
 
 
