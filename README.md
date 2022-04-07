@@ -61,7 +61,7 @@ Seed internet emulator can be run on any host OS as long as you have python3+, D
 * `$ apt-get install dos2unix`
 * `$ find . -type f -exec dos2unix '{}' '+'`
 
-2. If you run everything in Windows Docker, certain linux-only devices that rely on socket communication tend to not work (I am thinking of the blockchain example specifically here). There is no crossover for socket communication between WSL and Windows host containers, causing this deployment to break. 
+2. If you run everything in Windows Docker, certain linux-only devices that rely on socket communication tend to not work (I am thinking of the blockchain example specifically here). There is no crossover for linux socket communication between Linux-based containers and Windows Docker environment, causing this deployment to break. Alternatively, trying a mix between Windows Docker and WSL Docker containers in a unified environment also does not work due to limits on socket communication. Docker states this will not ever be a feature due to surrounding security challenges opening up this type of communication would expose.
 
 3. If you are running the Eve-ng environment, this requires nested virtualization be enabled on the windows OS. However, this causes problems with WSL and you will not be able to use both environments simultaneously. 
 
