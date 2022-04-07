@@ -30,6 +30,22 @@ The emulator system comes mostly ready to run. There are a few commands you need
 
 # Running SEED BGP Environment (Pre-built Examples)
 The standard process to setup and run an environment is as follows:
-* 1. Run the example python setup script (for your chosen example, eg. for `A00-simple-peering` run the s`imple-peering.py` file: `$ python3 simple-peering.py`). This creates a `\output` directory with a `docker-compose.yaml` file along with the individual folders that will make up the individual docker images for each device in your environment (eg. bgp router, web server, etc.) Within these folders is a `Dockerfile` of the individual component setup scripts which will get run in the next step.
+* 1. Run the example python setup script for your chosen example(eg. for `A00-simple-peering` run the `simple-peering.py` file: `$ python3 simple-peering.py`). This creates a `\output` directory with a `docker-compose.yaml` file along with the individual folders that will make up the individual docker images for each device in your environment (eg. bgp router, web server, etc.) Within these folders is a `Dockerfile` of the individual component setup scripts which will get run in the next step.
 * 2. Next, you create your docker images. From the `/output` directory, run: `$ docker-compose build` followed by `$docker-compose up`. This will launch your environment of networked systems within the VM.
 * 3. In order to see/visualize these components, a seperate docker image is used to run the web fron/backend for the environment visualization. Go back to your seed root directory and go into the `/client` folder.  Run a `$ docker-compose build` followed by `$ docker-compose up`. Once everything is built/loaded you can navigate to: `http://127.0.0.1:8080/map.html` to view your simulation and interact with devices graphically. Alternatively, `http://127.0.0.1:8080` will present the device dashboard.
+
+# Interacting with the SEED environment
+From your web frontend, you can click on devices and conduct basic actions like ping, etc. If you want to visualize how this is connecting across the network, the top of the page has a `filter` line. Filter by `ICMP` and it will trace the route through the network. From here you can take devices offline and see how the routing topology reacts to find a new path (or not). Re-enable the device to return to normal operation.
+
+# Building custom topologies
+Everything within the SEED environment can be built through a simple python script. The script is divided into 5 key components which are each layered together to provide the full emulation environment:
+
+* Emulation layer: establishes initial emulation environment composed of interconnected docker containers
+* Base layer: defines the individual docker container initial environment and the necessary components
+* Routing layer: initializes the interconnectivity between devices (links everything together via docker-compose environment)
+* Protocol layer: initializes device routing protocols (eg. bgp, ospf, etc) for devices
+* Device/service layer: adds additional capabilities to the simulation environment such as Web services, DNS, etc.
+
+To build a custom envionment you simply define within the python script the components you need and how they should be linked together. Recommend looking at the `A00-simple-peering` for an easy to understand example/workflow. 
+
+
